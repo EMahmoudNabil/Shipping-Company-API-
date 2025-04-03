@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35913.81 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping.Api", "Shipping.Api\Shipping.Api.csproj", "{3AD1BC7C-1DA7-4ED4-9A34-D905DE4955AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AD1BC7C-1DA7-4ED4-9A34-D905DE4955AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AD1BC7C-1DA7-4ED4-9A34-D905DE4955AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AD1BC7C-1DA7-4ED4-9A34-D905DE4955AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AD1BC7C-1DA7-4ED4-9A34-D905DE4955AC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {745FC840-5AF6-4EFF-8EF9-28EF3BB4053F}
+	EndGlobalSection
+EndGlobal
