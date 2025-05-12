@@ -1,0 +1,126 @@
+<div class="dashboard-container">
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>جاري تحميل البيانات...</p>
+  </div>
+
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+    <div class="header-title">
+      <h1>{{ userType === 'employee' ? 'لوحة تحكم الموظف' : 'لوحة تحكم التاجر' }}</h1>
+      <div class="last-updated">آخر تحديث: {{ lastUpdated | date:'medium' }}</div>
+    </div>
+    <button mat-raised-button class="refresh-btn" (click)="refreshDashboard()">
+      <mat-icon>refresh</mat-icon>
+      تحديث
+    </button>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="stats-section">
+    <h2 class="section-title">نظرة عامة</h2>
+    <div class="stats-grid">
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalDelivered }}</div>
+          <div class="stat-label">تم التوصيل</div>
+          <mat-icon class="stat-icon">local_shipping</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalPending }}</div>
+          <div class="stat-label">قيد الانتظار</div>
+          <mat-icon class="stat-icon">pending</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalCancelled }}</div>
+          <div class="stat-label">ملغي</div>
+          <mat-icon class="stat-icon">cancel</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalInProcessing }}</div>
+          <div class="stat-label">قيد المعالجة</div>
+          <mat-icon class="stat-icon">pending_actions</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalAwaitingConfirmation }}</div>
+          <div class="stat-label">في انتظار التأكيد</div>
+          <mat-icon class="stat-icon">hourglass_empty</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalRejected }}</div>
+          <div class="stat-label">مرفوض</div>
+          <mat-icon class="stat-icon">block</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalReceived }}</div>
+          <div class="stat-label">تم الاستلام</div>
+          <mat-icon class="stat-icon">inventory_2</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalShipped }}</div>
+          <div class="stat-label">تم الشحن</div>
+          <mat-icon class="stat-icon">local_shipping</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalReturned }}</div>
+          <div class="stat-label">تم الإرجاع</div>
+          <mat-icon class="stat-icon">assignment_return</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalPayed }}</div>
+          <div class="stat-label">تم الدفع</div>
+          <mat-icon class="stat-icon">payments</mat-icon>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.totalUpdated }}</div>
+          <div class="stat-label">تم التحديث</div>
+          <mat-icon class="stat-icon">update</mat-icon>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="chart-card">
+    <mat-card-header>
+      <mat-card-title>إحصائيات الطلبات</mat-card-title>
+      <mat-card-subtitle>آخر 30 يوم</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="chart-container">
+        <canvas #orderChart></canvas>
+      </div>
+    </mat-card-content>
+  </div>
+</div>

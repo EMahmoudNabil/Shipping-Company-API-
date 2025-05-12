@@ -1,0 +1,88 @@
+main {
+    background-color: #ededed;
+    min-height: 100vh;
+    position: relative;
+  }
+  app-side-nav {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    bottom: 0;
+    min-height: 100vh;
+    width: 300px;
+    z-index: 997;
+  }
+  .chat-fab {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+  }
+  app-side-nav.sidebar-active {
+    right: 0;
+    transition: all ease-in-out 0.3s;
+  }
+  @media (max-width: 1199px) {
+    app-side-nav {
+      right: -100%;
+      top: 73px;
+    }
+  
+    app-side-nav.sidebar-active {
+      right: 0;
+      top: 73px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .sidebar-active ~ main {
+      animation: forwards slideLeft 0.3s ease-in-out;
+    }
+  }
+  
+  @keyframes slideLeft {
+    0% {
+      margin-right: 0;
+    }
+    100% {
+      margin-right: 300px;
+    }
+  }
+  
+
+  .chat-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .chat-fab {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    }
+    
+    &.chat-fab-hidden {
+      opacity: 0.5;
+      transform: scale(0.9);
+    }
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #f44336;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+  }

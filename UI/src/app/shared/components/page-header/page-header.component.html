@@ -1,0 +1,36 @@
+<div class="page-header-container" dir="rtl">
+  <div class="header-content">
+    <!-- العنوان الرئيسي -->
+    <div class="header-title-section">
+      <h2 class="header-title">{{ title }}</h2>
+      
+      <!-- مسار التنقل (Breadcrumb) -->
+      @if (path.length > 0) {
+      <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <ol class="breadcrumb">
+          <!-- الرابط إلى الصفحة الرئيسية -->
+          <li class="breadcrumb-item">
+            <a [routerLink]="['/dashboard']" class="breadcrumb-link">
+              <mat-icon class="breadcrumb-icon">home</mat-icon>
+              الرئيسية
+            </a>
+          </li>
+          
+          <!-- روابط المسار -->
+          @for (item of path; track $index) {
+          <li class="breadcrumb-item">
+            <span class="breadcrumb-separator"></span>
+            <a [routerLink]="[item.link]" class="breadcrumb-link">{{ item.name }}</a>
+          </li>
+          }
+        </ol>
+      </nav>
+      }
+    </div>
+    
+    <!-- محتوى إضافي (مثل أزرار الإجراءات) -->
+    <div class="header-actions">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

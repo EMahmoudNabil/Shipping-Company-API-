@@ -1,0 +1,166 @@
+/* region.component.css */
+.arabic-style {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  .transition {
+    transition: all 0.3s ease;
+  }
+  
+  .bg-light-primary {
+    background-color: #e3f2fd;
+  }
+  
+  .rtl-form .form-control {
+    text-align: right;
+  }
+  
+  .modal-content {
+    border-radius: 15px;
+  }
+  
+  .close {
+    opacity: 0.75;
+    transition: opacity 0.3s;
+  }
+  
+  .close:hover {
+    opacity: 1;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+  }
+  
+  .btn-outline-info:hover {
+    background-color: #17a2b8;
+    color: white;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  .btn-icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .btn-icon:hover {
+    transform: rotate(90deg) scale(1.1);
+    background-color: rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  .modal-header {
+    padding: 1.2rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  }
+
+
+  /* Custom Toastr styling */
+.toast-title {
+    font-weight: bold;
+  }
+  
+  .toast-message {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  .toast-top-left {
+    top: 12px;
+    left: 12px;
+    right: auto;
+  }
+
+  
+  /* Toggle Switch - RTL Version */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #28a745; /* Green color for active state */
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(-20px);
+  }
+  
+  /* RTL specific adjustments */
+  .arabic-style input:checked + .slider:before {
+    transform: translateX(20px); /* Reverse direction for RTL */
+  }
+  
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  /* Pagination */
+  .pagination-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .pagination-controls select {
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  .pagination-controls button {
+    padding: 5px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f8f9fa;
+    cursor: pointer;
+  }
+  
+  .pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }

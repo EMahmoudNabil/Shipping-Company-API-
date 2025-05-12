@@ -1,0 +1,65 @@
+/* في ملف الـ styles.css العام */
+body {
+  direction: rtl;
+  text-align: right;
+}
+.hedtext{
+  color: #2c3e50;
+}
+.form-header {
+  background: #2c3e50;
+  color: white;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+/* تحسينات إضافية */
+.form-label, .form-control, .form-select {
+  text-align: right;
+}
+
+.table {
+  direction: rtl;
+}
+
+.table th, .table td {
+  text-align: right;
+}
+
+/* تعديل أيقونات Font Awesome */
+.fa {
+  margin-left: 5px;
+  margin-right: 0;
+}
+
+
+/* تحسينات للعناصر الخاصة */
+.form-select {
+  background-position: left 0.75rem center;
+}
+
+.input-group-text {
+  direction: ltr; /* للحفاظ على اتجاه الأرقام */
+}
+
+/* تعديلات الجداول */
+.table-responsive {
+  direction: rtl;
+}
+
+.table thead th {
+  border-right: none;
+  border-left: 1px solid #dee2e6;
+}
+
+/* تعديلات الأزرار */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.btn i {
+  margin-right: 0;
+  margin-left: 5px;
+}

@@ -1,0 +1,126 @@
+.arabic-style {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  /* Form styling */
+  .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-control,
+  .form-select {
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    padding: 0.625rem 0.75rem;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  .form-control:focus,
+  .form-select:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.15rem rgba(var(--bs-primary-rgb), 0.25);
+  }
+  
+  /* Section headers */
+  h5 {
+    color: var(--bs-primary);
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+  
+  /* Card styling */
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  /* Table styling */
+  .table-hover tbody tr {
+    transition: all 0.3s ease;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+  
+  .bg-light-primary {
+    background-color: rgba(var(--bs-primary-rgb), 0.12) !important;
+  }
+  
+  /* Button styling */
+  .btn {
+    border-radius: 6px;
+    padding: 0.625rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .btn-primary {
+    box-shadow: 0 2px 6px rgba(var(--bs-primary-rgb), 0.2);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(var(--bs-primary-rgb), 0.3);
+  }
+  
+  .btn-secondary {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    color: #6c757d;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+    color: #495057;
+  }
+  
+  /* Form validation styling */
+  input.ng-invalid.ng-touched,
+  select.ng-invalid.ng-touched,
+  textarea.ng-invalid.ng-touched {
+    border-color: var(--bs-danger);
+  }
+  
+  .text-danger {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Custom Switch for special city costs */
+  .form-switch .form-check-input {
+    height: 1.25rem;
+    width: 2.5rem;
+    cursor: pointer;
+  }
+  
+  .form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .card-body {
+      padding: 1.25rem;
+    }
+    
+    .row {
+      margin-right: -0.5rem;
+      margin-left: -0.5rem;
+    }
+    
+    .col-md-4, .col-md-6 {
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+    }
+  }

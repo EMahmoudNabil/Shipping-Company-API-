@@ -1,0 +1,195 @@
+<!-- add-employee.component.html -->
+<app-page-header
+  [path]="[{ name: ' إضافة موظف جديد', link: '/add-employee' }]">
+</app-page-header>
+
+<div class="container mt-4 arabic-style">
+  <div class="custom-form-card">
+    <div class="form-header">
+      <h3><i class="fas fa-user-plus me-2"></i>نموذج إضافة موظف جديد</h3>
+    </div>
+    
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+      <div class="row g-4">
+        <!-- Email -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-envelope icon"></i>البريد الإلكتروني
+            </label>
+            <div class="input-group">
+              <input 
+                type="email" 
+                class="form-control" 
+                formControlName="email"
+                placeholder="أدخل البريد الإلكتروني"
+              >
+            </div>
+            <div *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" 
+                class="invalid-feedback">
+              <i class="fas fa-exclamation-circle me-1"></i>بريد إلكتروني صحيح مطلوب
+            </div>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-lock icon"></i>كلمة المرور
+            </label>
+            <div class="input-group">
+              <input 
+                type="password" 
+                class="form-control" 
+                formControlName="password"
+                placeholder="أدخل كلمة المرور"
+              >
+            </div>
+            <div *ngIf="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched" 
+                class="invalid-feedback">
+              <i class="fas fa-exclamation-circle me-1"></i>كلمة المرور يجب أن تكون 6 أحرف على الأقل
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Name -->
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-user icon"></i>الاسم بالكامل
+            </label>
+            <div class="input-group">
+              <input 
+                type="text" 
+                class="form-control" 
+                formControlName="fullName"
+                placeholder="أدخل الاسم بالكامل"
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-phone icon"></i>رقم الهاتف
+            </label>
+            <div class="input-group">
+              <input 
+                type="tel" 
+                class="form-control" 
+                formControlName="phoneNumber"
+                placeholder="أدخل رقم الهاتف"
+              >
+            </div>
+            <div *ngIf="employeeForm.get('phoneNumber')?.errors?.['pattern']" 
+                class="invalid-feedback">
+              <i class="fas fa-exclamation-circle me-1"></i>رقم هاتف مصري صحيح مطلوب (11 رقم)
+            </div>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-map-marker-alt icon"></i>العنوان
+            </label>
+            <div class="input-group">
+              <input 
+                type="text" 
+                class="form-control" 
+                formControlName="address"
+                placeholder="أدخل العنوان"
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Branch -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-code-branch icon"></i>الفرع
+            </label>
+            <div class="input-group">
+              <select class="form-select" formControlName="branchId">
+                <option value="" disabled>اختر الفرع</option>
+                <option *ngFor="let branch of branches" [value]="branch.id">
+                  {{ branch.name }}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="employeeForm.get('branchId')?.invalid && employeeForm.get('branchId')?.touched" 
+                class="invalid-feedback">
+              <i class="fas fa-exclamation-circle me-1"></i>مطلوب اختيار الفرع
+            </div>
+          </div>
+        </div>
+
+        <!-- Region -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-map-marked-alt icon"></i>المنطقة
+            </label>
+            <div class="input-group">
+              <select class="form-select" formControlName="regionID">
+                <option value="" disabled>اختر المنطقة</option>
+                <option *ngFor="let region of regions" [value]="region.id">
+                  {{ region.governorate }}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="employeeForm.get('regionID')?.invalid && employeeForm.get('regionID')?.touched" 
+                class="invalid-feedback">
+              <i class="fas fa-exclamation-circle me-1"></i>مطلوب اختيار المنطقة
+            </div>
+          </div>
+        </div>
+
+        <!-- Role -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-user-tag icon"></i>الدور الوظيفي
+            </label>
+            <div class="input-group">
+              <select class="form-select" formControlName="roleName">
+                <option value="" disabled>اختر الدور</option>
+                <option *ngFor="let role of roles" [value]="role.roleName">
+                  {{ role.roleName }}
+                </option>
+                <option *ngIf="isLoadingRoles" disabled>
+                  <i class="fas fa-spinner fa-spin me-2"></i>جاري تحميل الأدوار...
+                </option>
+              </select>
+            </div>
+            <div *ngIf="employeeForm.get('roleName')?.invalid && employeeForm.get('roleName')?.touched" 
+                class="invalid-feedback">
+              <i class="fas fa-exclamation-circle me-1"></i>مطلوب اختيار الدور
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-12 mt-4">
+          <button 
+            type="submit" 
+            class="btn btn-submit"
+            [disabled]="employeeForm.invalid || isSubmitting"
+          >
+            <span *ngIf="!isSubmitting">
+              <i class="fas fa-save me-2"></i>حفظ البيانات
+            </span>
+            <span *ngIf="isSubmitting">
+              <i class="fas fa-spinner fa-spin me-2"></i>جاري الحفظ...
+            </span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

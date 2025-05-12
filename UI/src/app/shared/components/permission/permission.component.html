@@ -1,0 +1,297 @@
+<app-page-header
+  [path]="[{ name: 'إدارة الصلاحيات', link: '/Groups' }]">
+</app-page-header>
+
+<div class="container mt-4 arabic-style">
+  <!-- Page Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0 text-primary fw-bold">
+      <i class="fas fa-user-shield me-2"></i>إدارة الصلاحيات
+    </h2>
+    <button
+      class="btn btn-primary rounded-pill px-4 py-2"
+      (click)="resetForm()"
+      data-bs-toggle="modal"
+      data-bs-target="#roleModal"
+    >
+      <i class="fas fa-plus-circle me-2"></i>إضافة صلاحية جديدة
+    </button>
+  </div>
+
+  <!-- Roles Table -->
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white py-3">
+      <h5 class="mb-0">
+        <i class="fas fa-list-alt me-2"></i>قائمة الصلاحيات
+      </h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="bg-light-primary">
+            <tr>
+              <th class="py-3 ps-4">#</th>
+              <th class="py-3">اسم الصلاحية</th>
+              <th class="py-3 text-center">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (loading) {
+            <tr>
+              <td colspan="3" class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2 mb-0">جاري التحميل...</p>
+              </td>
+            </tr>
+            } 
+            @if (!loading && paginatedRoles.length === 0) {
+            <tr>
+              <td colspan="3" class="text-center py-4">
+                <i class="fas fa-info-circle text-muted fa-2x mb-2"></i>
+                <p class="text-muted mb-0">لا توجد صلاحيات للعرض</p>
+              </td>
+            </tr>
+            } 
+            @for (role of paginatedRoles; track role.roleId; let i = $index) {
+            <tr class="transition">
+              <td class="align-middle ps-4">
+                {{ (currentPage - 1) * displayCount + i + 1 }}
+              </td>
+              <td class="align-middle fw-medium">{{ role.roleName }}</td>
+              <td class="align-middle text-center">
+                <div class="btn-group" role="group">
+                  <button
+                    class="btn btn-sm btn-outline-primary rounded-start-pill me-1"
+                    title="تعديل"
+                    (click)="editRole(role)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#roleModal"
+                  >
+                    <i class="fas fa-edit me-1"></i> تعديل
+                  </button>
+                  <button
+                    class="btn btn-sm btn-outline-danger rounded-end-pill"
+                    title="حذف"
+                    (click)="deleteRole(role.roleId)"
+                  >
+                    <i class="fas fa-trash-alt me-1"></i> حذف
+                  </button>
+                </div>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="d-flex justify-content-between align-items-center mt-4">
+    <div class="d-flex align-items-center">
+      <span class="me-2 text-muted">عرض:</span>
+      <select
+        class="form-select form-select-sm w-auto"
+        [(ngModel)]="displayCount"
+        (change)="setDisplayCount(displayCount)"
+      >
+        <option [value]="10">10</option>
+        <option [value]="25">25</option>
+        <option [value]="50">50</option>
+      </select>
+    </div>
+
+    <nav aria-label="Page navigation">
+      <ul class="pagination mb-0">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a
+            class="page-link rounded-start-pill"
+            href="javascript:void(0)"
+            (click)="changePage(currentPage - 1)"
+          >
+            <i class="fas fa-chevron-right me-1"></i> السابق
+          </a>
+        </li>
+        @for (page of getPageNumbers(); track page) {
+        <li class="page-item" [class.active]="page === currentPage">
+          <a
+            class="page-link"
+            href="javascript:void(0)"
+            (click)="changePage(page)"
+          >
+            {{ page }}
+          </a>
+        </li>
+        }
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a
+            class="page-link rounded-end-pill"
+            href="javascript:void(0)"
+            (click)="changePage(currentPage + 1)"
+          >
+            التالي <i class="fas fa-chevron-left ms-1"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!-- Modal for Role Creation -->
+<div
+  class="modal fade"
+  id="roleModal"
+  tabindex="-1"
+  aria-labelledby="roleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="roleModalLabel">
+          <i class="fas" [class.fa-edit]="editMode" [class.fa-plus-circle]="!editMode"></i>
+          {{ editMode ? "تعديل الصلاحية" : "إضافة صلاحية" }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+          <div class="mb-4">
+            <label for="roleName" class="form-label fw-medium">اسم الصلاحية</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light">
+                <i class="fas fa-tag"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                id="roleName"
+                formControlName="roleName"
+                placeholder="ادخل اسم الصلاحية"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="fw-medium mb-3">
+              <i class="fas fa-key me-2"></i>الصلاحيات الممنوحة
+            </h6>
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover">
+                <thead class="table-primary">
+                  <tr>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">الصلاحية</th>
+                    <th scope="col" class="text-center">عرض</th>
+                    <th scope="col" class="text-center">إضافة</th>
+                    <th scope="col" class="text-center">تعديل</th>
+                    <th scope="col" class="text-center">حذف</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (permission of permissionsList; track permission.name) {
+                  <tr>
+                    <td class="text-center">{{ $index + 1 }}</td>
+                    <td class="fw-medium">{{ permission.name }}</td>
+                    <td class="text-center">
+                      <div class="form-check form-switch d-inline-block">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          role="switch"
+                          [checked]="
+                            roleForm
+                              .get('permissions')
+                              ?.value?.includes(permission.view)
+                          "
+                          (change)="onPermissionChange($event, permission.view)"
+                        />
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="form-check form-switch d-inline-block">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          role="switch"
+                          [checked]="
+                            roleForm
+                              .get('permissions')
+                              ?.value?.includes(permission.add)
+                          "
+                          (change)="onPermissionChange($event, permission.add)"
+                        />
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="form-check form-switch d-inline-block">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          role="switch"
+                          [checked]="
+                            roleForm
+                              .get('permissions')
+                              ?.value?.includes(permission.update)
+                          "
+                          (change)="onPermissionChange($event, permission.update)"
+                        />
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="form-check form-switch d-inline-block">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          role="switch"
+                          [checked]="
+                            roleForm
+                              .get('permissions')
+                              ?.value?.includes(permission.delete)
+                          "
+                          (change)="onPermissionChange($event, permission.delete)"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary rounded-pill px-4"
+              data-bs-dismiss="modal"
+            >
+              إلغاء
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary rounded-pill px-4"
+              [disabled]="roleForm.invalid || loading"
+            >
+              <span *ngIf="!loading">
+                <i class="fas" [class.fa-save]="!editMode" [class.fa-sync-alt]="editMode"></i>
+                {{ editMode ? "تحديث" : "حفظ" }}
+              </span>
+              <span *ngIf="loading">
+                <span class="spinner-border spinner-border-sm me-1"></span>
+                جاري الحفظ...
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

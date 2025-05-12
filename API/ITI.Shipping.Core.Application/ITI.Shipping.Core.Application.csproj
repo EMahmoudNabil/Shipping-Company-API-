@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ITI.Shipping.Core.Application.Abstraction\ITI.Shipping.Core.Application.Abstraction.csproj" />
+    <ProjectReference Include="..\ITI.Shipping.Core.Domin\ITI.Shipping.Core.Domin.csproj" />
+    <ProjectReference Include="..\ITI.Shipping.Infrastructure.Presistence\ITI.Shipping.Infrastructure.Presistence.csproj" />
+  </ItemGroup>
+
+</Project>

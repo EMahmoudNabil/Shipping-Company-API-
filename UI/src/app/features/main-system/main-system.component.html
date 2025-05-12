@@ -1,0 +1,22 @@
+<app-side-nav [ngClass]="{ 'sidebar-active': sidebarActive }"></app-side-nav>
+<main>
+  <app-loading></app-loading>
+  <app-navbar 
+    (sidebarToggle)="toggleSidebar()" 
+    (addCityClicked)="onAddCityClick()">
+  </app-navbar>
+
+  <div class="chat-wrapper">
+    <button mat-fab class="chat-fab" color="primary" (click)="toggleChat()" 
+            [class.chat-fab-hidden]="showChat" matTooltip="فتح الدردشة">
+      <mat-icon>{{showChat ? 'close' : 'chat'}}</mat-icon>
+      <span class="notification-badge" *ngIf="unreadMessages > 0 && !showChat">
+        {{unreadMessages > 9 ? '9+' : unreadMessages}}
+      </span>
+    </button>
+ 
+    <app-chatbot *ngIf="showChat" (chatClosed)="onChatClosed()"></app-chatbot>
+  </div>
+  
+  <router-outlet></router-outlet>
+</main>

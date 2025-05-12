@@ -1,0 +1,66 @@
+.arabic-style {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  .form-label {
+    font-weight: 500;
+  }
+  
+  .card {
+    border-radius: 10px;
+  }
+  
+  .card-body {
+    padding: 25px;
+  }
+  
+  .btn-primary {
+    background-color: #2563eb;
+    border-color: #2563eb;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+  }
+  
+  .btn-secondary {
+    background-color: #64748b;
+    border-color: #64748b;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #475569;
+    border-color: #475569;
+  }
+  
+  .form-check-input:checked {
+    background-color: #2563eb;
+    border-color: #2563eb;
+  }
+  
+  .text-primary {
+    color: #2563eb !important;
+  }
+  
+  h5 {
+    color: #1e293b;
+  }
+  
+  .table th {
+    background-color: #f8fafc;
+    font-weight: 600;
+  }
+  
+  .alert-info {
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+    color: #1e40af;
+  }
+  
+  .alert-warning {
+    background-color: #fef3c7;
+    border-color: #fde68a;
+    color: #92400e;
+  }

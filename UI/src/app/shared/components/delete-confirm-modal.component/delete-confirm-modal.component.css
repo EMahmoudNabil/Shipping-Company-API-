@@ -1,0 +1,11 @@
+.mat-icon-button {
+  transition: all 0.3s;
+}
+
+.mat-icon-button:hover {
+  transform: scale(1.1);
+}
+
+.mat-spinner {
+  margin: 20px auto;
+}

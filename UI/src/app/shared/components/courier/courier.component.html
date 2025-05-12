@@ -1,0 +1,251 @@
+<!-- Courier Registration Form -->
+<div class="container mt-5 arabic-style">
+  <!-- Page Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0 text-primary">
+      <i class="fas fa-user-plus me-2"></i> تسجيل مندوب جديد
+    </h2>
+  </div>
+
+  <!-- Registration Form Card -->
+  <div class="card shadow-lg border-0 mb-4">
+    <div class="card-body p-4">
+      <form (ngSubmit)="createCourier()" #courierForm="ngForm">
+        <!-- Personal Information Section -->
+        <div class="mb-4">
+          <h5 class="border-bottom pb-2 mb-3">المعلومات الشخصية</h5>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="fullName" class="form-label">الاسم الكامل*</label>
+              <input
+                type="text"
+                class="form-control"
+                id="fullName"
+                name="fullName"
+                [(ngModel)]="courier.fullName"
+                required
+                #fullNameInput="ngModel"
+                placeholder="أدخل الاسم الكامل"
+              />
+              <div
+                *ngIf="fullNameInput.invalid && fullNameInput.touched"
+                class="text-danger mt-1"
+              >
+                هذا الحقل مطلوب
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">البريد الإلكتروني*</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                [(ngModel)]="courier.email"
+                required
+                email
+                #emailInput="ngModel"
+                placeholder="example@domain.com"
+              />
+              <div
+                *ngIf="emailInput.invalid && emailInput.touched"
+                class="text-danger mt-1"
+              >
+                يرجى إدخال بريد إلكتروني صحيح
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="password" class="form-label">كلمة المرور*</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                [(ngModel)]="courier.password"
+                required
+                minlength="6"
+                #passwordInput="ngModel"
+                placeholder="أدخل كلمة المرور"
+              />
+              <div
+                *ngIf="passwordInput.invalid && passwordInput.touched"
+                class="text-danger mt-1"
+              >
+                كلمة المرور يجب أن تكون 6 أحرف على الأقل
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="phoneNumber" class="form-label">رقم الهاتف*</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phoneNumber"
+                name="phoneNumber"
+                [(ngModel)]="courier.phoneNumber"
+                required
+                #phoneInput="ngModel"
+                placeholder="05xxxxxxxx"
+              />
+              <div
+                *ngIf="phoneInput.invalid && phoneInput.touched"
+                class="text-danger mt-1"
+              >
+                هذا الحقل مطلوب
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">العنوان*</label>
+            <textarea
+              class="form-control"
+              id="address"
+              name="address"
+              [(ngModel)]="courier.address"
+              required
+              rows="2"
+              #addressInput="ngModel"
+              placeholder="أدخل عنوان تفصيلي"
+            ></textarea>
+            <div
+              *ngIf="addressInput.invalid && addressInput.touched"
+              class="text-danger mt-1"
+            >
+              هذا الحقل مطلوب
+            </div>
+          </div>
+        </div>
+
+        <!-- Branch & Finance Information Section -->
+        <div class="mb-4">
+          <h5 class="border-bottom pb-2 mb-3">معلومات الفرع والمالية</h5>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="branchId" class="form-label">الفرع*</label>
+              <select
+                class="form-select"
+                id="branchId"
+                name="branchId"
+                [(ngModel)]="courier.branchId"
+                required
+                #branchIdInput="ngModel"
+              >
+                <option [ngValue]="0" disabled>اختر الفرع</option>
+                <option *ngFor="let branch of branches" [ngValue]="branch.id">
+                  {{ branch.name }}
+                </option>
+              </select>
+              <div
+                *ngIf="branchIdInput.invalid && branchIdInput.touched"
+                class="text-danger mt-1"
+              >
+                هذا الحقل مطلوب
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="deductionType" class="form-label">نوع الخصم*</label>
+              <select
+                class="form-select"
+                id="deductionType"
+                name="deductionType"
+                [(ngModel)]="courier.deductionType"
+                required
+                #deductionTypeInput="ngModel"
+              >
+                <option [ngValue]="0" disabled>اختر نوع الخصم</option>
+                <option [ngValue]="1">نسبة مئوية</option>
+                <option [ngValue]="2">مبلغ ثابت</option>
+              </select>
+              <div
+                *ngIf="deductionTypeInput.invalid && deductionTypeInput.touched"
+                class="text-danger mt-1"
+              >
+                هذا الحقل مطلوب
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="deductionCompanyFromOrder" class="form-label"
+                >قيمة الخصم*</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="deductionCompanyFromOrder"
+                name="deductionCompanyFromOrder"
+                [(ngModel)]="courier.deductionCompanyFromOrder"
+                required
+                min="0"
+                step="0.01"
+                #deductionInput="ngModel"
+                placeholder="أدخل قيمة الخصم"
+              />
+              <div
+                *ngIf="deductionInput.invalid && deductionInput.touched"
+                class="text-danger mt-1"
+              >
+                هذا الحقل مطلوب
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Special Regions Section -->
+        <div class="mb-4">
+          <h5 class="border-bottom pb-2 mb-3">المناطق الخاصة بالمندوب</h5>
+          <div class="alert alert-info mb-3">
+            <i class="fas fa-info-circle me-2"></i>
+            يمكنك تحديد المناطق التي يعمل بها المندوب
+          </div>
+
+          <div class="table-responsive" *ngIf="regions.length > 0">
+            <table class="table table-striped table-bordered">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 50px">تحديد</th>
+                  <th>اسم المنطقة</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let region of regions">
+                  <td class="text-center">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="region-{{ region.id }}"
+                        [(ngModel)]="regionSelections[region.id]"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                    </div>
+                  </td>
+                  <td>{{ region.governorate }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="alert alert-warning" *ngIf="regions.length === 0">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            لا توجد مناطق متاحة
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="d-flex justify-content-between mt-4">
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">
+            <i class="fas fa-times me-1"></i> إلغاء
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary px-4"
+            [disabled]="courierForm.invalid || isSubmitting"
+          >
+            <i class="fas fa-save me-1"></i>
+            <span *ngIf="!isSubmitting">حفظ</span>
+            <span *ngIf="isSubmitting">جاري الحفظ...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <div class="header-content">
+      <mat-icon class="chat-icon">support_agent</mat-icon>
+      <h2>دعم العملاء - نظام الشحن</h2>
+    </div>
+    <button mat-icon-button (click)="closeChat()" matTooltip="إغلاق الدردشة">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="chat-messages">
+    <ng-container *ngIf="isLoading; else messagesContent">
+      <div class="loading-container">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>جاري تحميل المحادثة...</p>
+      </div>
+    </ng-container>
+
+    <ng-template #messagesContent>
+      <div *ngFor="let message of messages; trackBy: trackByMessageId"
+           [class.bot-message]="isBotMessage(message)"
+           [class.user-message]="!isBotMessage(message)"
+           [class.system-message]="message.sender === 'System'"
+           class="message">
+        
+        <div class="message-sender" *ngIf="message.sender === 'System'">
+          <mat-icon>notifications</mat-icon>
+        </div>
+        
+        <div class="message-content">
+          <div [innerHTML]="message.content | formatMessage"></div>
+          
+          <div class="quick-replies" *ngIf="message.quickReplies && message.quickReplies.length > 0">
+            <button mat-button *ngFor="let reply of message.quickReplies" 
+                    (click)="handleQuickReply(reply)">
+              {{ reply.title }}
+            </button>
+          </div>
+        </div>
+        
+        <div class="message-time">
+          {{ message.timestamp | date:'shortTime' }}
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="chat-input">
+    <input [(ngModel)]="newMessage" 
+           placeholder="اكتب رسالتك هنا..."
+           (keyup.enter)="sendMessage()"
+           [disabled]="isSending || !conversation">
+    
+    <button mat-raised-button color="primary" 
+            (click)="sendMessage()"
+            [disabled]="!newMessage.trim() || isSending || !conversation">
+      <span *ngIf="!isSending">إرسال</span>
+      <mat-spinner diameter="20" *ngIf="isSending"></mat-spinner>
+    </button>
+  </div>
+</div>

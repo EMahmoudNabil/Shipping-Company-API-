@@ -1,0 +1,135 @@
+.arabic-style {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.custom-form-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.form-header {
+  background: #2c3e50;
+  color: white;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-header h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+.product-item {
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.product-item:hover {
+  background-color: #f1f1f1;
+}
+
+.form-header {
+  background-color: #2c3e50;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-outline-danger {
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.btn-outline-danger:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.input-group-text {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.invalid-feedback {
+  color: #e74c3c;
+  font-size: 0.85rem;
+}
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #34495e;
+}
+
+.form-label .icon {
+  color: #3498db;
+  margin-left: 8px;
+  width: 18px;
+  text-align: center;
+}
+
+.form-control, .form-select {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.input-group {
+  position: relative;
+}
+
+.invalid-feedback {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  display: block;
+}
+
+.btn-submit {
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s;
+  width: 100%;
+  max-width: 250px;
+  display: inline-block;
+}
+
+.btn-submit:hover {
+  background: #1a252f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-submit:disabled {
+  background: #95a5a6;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .btn-submit {
+    max-width: 100%;
+  }
+}

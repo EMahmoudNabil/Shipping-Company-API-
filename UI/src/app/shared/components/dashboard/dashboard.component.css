@@ -1,0 +1,174 @@
+.dashboard-container {
+  padding: 20px;
+  direction: rtl;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header-title h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.last-updated {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title {
+  margin-bottom: 16px;
+  color: #333;
+  font-size: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card mat-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: bold;
+  color: #1976d2;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.stat-icon {
+  font-size: 24px;
+  color: #1976d2;
+  opacity: 0.8;
+}
+
+.chart-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 24px;
+}
+
+.chart-card mat-card-header {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.chart-card mat-card-title {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.chart-card mat-card-subtitle {
+  margin: 4px 0 0;
+  color: #666;
+}
+
+.chart-container {
+  padding: 16px;
+  height: 400px;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-overlay p {
+  margin-top: 16px;
+  color: #666;
+}
+
+/* ألوان البطاقات */
+.stat-card.employee {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.stat-card.merchant {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* تخصيص الألوان لكل نوع من الإحصائيات */
+.stat-totalOrders { background-color: #e3f2fd; color: #1565c0; }
+.stat-totalInProcessing { background-color: #fff8e1; color: #ff8f00; }
+.stat-totalAwaitingConfirmation { background-color: #f3e5f5; color: #7b1fa2; }
+.stat-totalCompleted { background-color: #e8f5e9; color: #2e7d32; }
+.stat-totalDelivered { background-color: #e8f5e9; color: #2e7d32; }
+.stat-totalPending { background-color: #fff8e1; color: #ff8f00; }
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .chart-container {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-container {
+    height: 250px;
+  }
+}

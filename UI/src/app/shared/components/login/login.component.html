@@ -1,0 +1,62 @@
+<div class="login-container" dir="rtl">
+  <mat-card class="login-card">
+    <!-- شعار التطبيق -->
+    <div class="logo-container">
+      <img src="/assets/images/PSimge.png" alt="Logo" class="logo-img">
+    </div>
+
+    <!-- نموذج تسجيل الدخول -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <!-- حقل البريد الإلكتروني -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>البريد الإلكتروني</mat-label>
+        <input matInput 
+               type="email" 
+               formControlName="email" 
+               placeholder="ادخل البريد الإلكتروني">
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="loginForm.get('email')?.invalid">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">
+            البريد الإلكتروني مطلوب
+          </span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">
+            بريد إلكتروني غير صالح
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- حقل كلمة المرور -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>كلمة المرور</mat-label>
+        <input matInput 
+               [type]="showPassword ? 'text' : 'password'" 
+               formControlName="password" 
+               placeholder="ادخل كلمة المرور">
+        <button mat-icon-button matSuffix 
+                (click)="togglePasswordVisibility()"
+                [attr.aria-label]="'Show password'"
+                [attr.aria-pressed]="showPassword">
+          <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.invalid">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">
+            كلمة المرور مطلوبة
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- زر تسجيل الدخول -->
+      <button mat-raised-button 
+              color="primary" 
+              class="login-button" 
+              type="submit"
+              [disabled]="loading">
+        <span *ngIf="!loading">تسجيل الدخول</span>
+        <span *ngIf="loading">
+          <mat-icon class="spinner-icon">hourglass_top</mat-icon>
+          جاري تسجيل الدخول...
+        </span>
+      </button>
+    </form>
+  </mat-card>
+</div>

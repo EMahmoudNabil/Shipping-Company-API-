@@ -1,0 +1,232 @@
+<!-- Merchant Registration Form -->
+<div class="container mt-5 arabic-style">
+  <!-- Page Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0 text-primary">
+      <i class="fas fa-user-plus me-2"></i> تسجيل تاجر جديد
+    </h2>
+  </div>
+
+  <!-- Registration Form Card -->
+  <div class="card shadow-lg border-0 mb-4">
+    <div class="card-body p-4">
+      <form (ngSubmit)="createMerchant()" #merchantForm="ngForm">
+        <!-- Personal Information Section -->
+        <div class="mb-4">
+          <h5 class="border-bottom pb-2 mb-3">المعلومات الشخصية</h5>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="fullName" class="form-label">الاسم الكامل*</label>
+              <input
+                type="text"
+                class="form-control"
+                id="fullName"
+                name="fullName"
+                [(ngModel)]="merchant.fullName"
+                required
+                #fullNameInput="ngModel"
+                placeholder="أدخل الاسم الكامل"
+              />
+              <div
+                *ngIf="fullNameInput.invalid && fullNameInput.touched"
+                class="text-danger mt-1"
+              >
+                هذا الحقل مطلوب
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">البريد الإلكتروني*</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                [(ngModel)]="merchant.email"
+                required
+                email
+                #emailInput="ngModel"
+                placeholder="example@domain.com"
+              />
+              <div
+                *ngIf="emailInput.invalid && emailInput.touched"
+                class="text-danger mt-1"
+              >
+                يرجى إدخال بريد إلكتروني صحيح
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="password" class="form-label">كلمة المرور*</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                [(ngModel)]="merchant.password"
+                required
+                minlength="6"
+                #passwordInput="ngModel"
+                placeholder="أدخل كلمة المرور"
+              />
+              <div
+                *ngIf="passwordInput.invalid && passwordInput.touched"
+                class="text-danger mt-1"
+              >
+                كلمة المرور يجب أن تكون 6 أحرف على الأقل
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="phoneNumber" class="form-label">رقم الهاتف*</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phoneNumber"
+                name="phoneNumber"
+                [(ngModel)]="merchant.phoneNumber"
+                required
+                #phoneInput="ngModel"
+                placeholder="01xxxxxxxx"
+              />
+              <div
+                *ngIf="phoneInput.invalid && phoneInput.touched"
+                class="text-danger mt-1"
+              >
+                هذا الحقل مطلوب
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">العنوان*</label>
+            <textarea
+              class="form-control"
+              id="address"
+              name="address"
+              [(ngModel)]="merchant.address"
+              required
+              rows="2"
+              #addressInput="ngModel"
+              placeholder="أدخل عنوان تفصيلي"
+            ></textarea>
+            <div
+              *ngIf="addressInput.invalid && addressInput.touched"
+              class="text-danger mt-1"
+            >
+              هذا الحقل مطلوب
+            </div>
+          </div>
+        </div>
+
+        <!-- Store Information Section -->
+        <div class="mb-4">
+          <h5 class="border-bottom pb-2 mb-3">معلومات المتجر</h5>
+          <div class="mb-3">
+            <label for="storeName" class="form-label">اسم المتجر*</label>
+            <input
+              type="text"
+              class="form-control"
+              id="storeName"
+              name="storeName"
+              [(ngModel)]="merchant.storeName"
+              required
+              #storeNameInput="ngModel"
+              placeholder="أدخل اسم المتجر"
+            />
+            <div
+              *ngIf="storeNameInput.invalid && storeNameInput.touched"
+              class="text-danger mt-1"
+            >
+              هذا الحقل مطلوب
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="regionId" class="form-label">المنطقة*</label>
+              <select
+                class="form-select"
+                id="regionId"
+                name="regionId"
+                [(ngModel)]="merchant.regionId"
+                required
+                (change)="onRegionChange()"
+                #regionIdInput="ngModel"
+              >
+                <option [ngValue]="0" disabled>اختر المنطقة</option>
+                <option *ngFor="let region of regions" [ngValue]="region.id">
+                  {{ region.governorate }}
+                </option>
+              </select>
+              <div
+                *ngIf="regionIdInput.invalid && regionIdInput.touched"
+                class="text-danger mt-1"
+              >
+                هذا الحقل مطلوب
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="cityId" class="form-label">المدينة*</label>
+              <select
+                class="form-select"
+                id="cityId"
+                name="cityId"
+                [(ngModel)]="merchant.cityId"
+                required
+                #cityIdInput="ngModel"
+                [disabled]="cities.length === 0"
+              >
+                <option [ngValue]="0" disabled>اختر المدينة</option>
+                <option *ngFor="let city of cities" [ngValue]="city.id">
+                  {{ city.name }}
+                </option>
+              </select>
+              <div
+                *ngIf="cityIdInput.invalid && cityIdInput.touched"
+                class="text-danger mt-1"
+              >
+                هذا الحقل مطلوب
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="branchId" class="form-label">الفرع*</label>
+              <select
+                class="form-select"
+                id="branchId"
+                name="branchId"
+                [(ngModel)]="merchant.branchId"
+                required
+                #branchIdInput="ngModel"
+              >
+                <option [ngValue]="0" disabled>اختر الفرع</option>
+                <option *ngFor="let branch of branches" [ngValue]="branch.id">
+                  {{ branch.name }}
+                </option>
+              </select>
+              <div
+                *ngIf="branchIdInput.invalid && branchIdInput.touched"
+                class="text-danger mt-1"
+              >
+                هذا الحقل مطلوب
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="d-flex justify-content-between mt-4">
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">
+            <i class="fas fa-times me-1"></i> إلغاء
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary px-4"
+            [disabled]="merchantForm.invalid || isSubmitting"
+          >
+            <i class="fas fa-save me-1"></i>
+            <span *ngIf="!isSubmitting">حفظ</span>
+            <span *ngIf="isSubmitting">جاري الحفظ...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

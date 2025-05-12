@@ -1,0 +1,247 @@
+<div class="container mt-5 arabic-style">
+  <!-- Page Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0 text-primary">
+      <i class="fas fa-city me-2"></i> إدارة المدن
+    </h2>
+    <button class="btn btn-primary" (click)="openCreateModal()">
+      <i class="fas fa-plus-circle me-2"></i>إضافة مدينة جديدة
+    </button>
+  </div>
+
+  <!-- Cities Table -->
+  <div class="card shadow-lg border-0">
+    <div class="card-body p-0">
+      <div class="table-responsive-lg">
+        <table class="table table-hover mb-0">
+          <thead class="bg-light-primary">
+            <tr>
+              <th class="py-3">#</th>
+              <th class="py-3">اسم المدينة</th>
+              <th class="py-3">تكلفة الشحن</th>
+              <th class="py-3">تكلفة ال Pickup</th>
+              <th class="py-3">اسم المنطقة</th>
+              <th class="py-3 text-center">الإعدادات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let city of cities; let i = index" class="transition">
+              <td class="align-middle">
+                {{ (PageNumber - 1) * pageSize + i + 1 }}
+              </td>
+              <td class="align-middle fw-medium">{{ city.name }}</td>
+              <td class="align-middle">{{ city.standardShippingCost }}</td>
+              <td class="align-middle">{{ city.pickupShippingCost }}</td>
+              <td class="align-middle">{{ city.regionName }}</td>
+              <td class="align-middle text-center">
+                <div class="btn-group" role="group">
+                  <button
+                    (click)="openEditModal(city)"
+                    class="btn btn-sm btn-primary me-1"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    (click)="confirmDelete(city.id)"
+                    class="btn btn-sm btn-danger me-2"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="cities.length === 0">
+              <td colspan="6" class="text-center py-3">
+                لا توجد مدن للعرض
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <div>
+      <select
+        class="form-select"
+        [(ngModel)]="pageSize"
+        (change)="onPageSizeChange(pageSize)"
+      >
+        <option [value]="1">1 عناصر</option>
+        <option [value]="5">5 عناصر</option>
+        <option [value]="7">7 عناصر</option>
+        <option [value]="10">10 عناصر</option>
+      </select>
+    </div>
+
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="PageNumber === 1">
+          <a class="page-link" href="javascript:void(0)" (click)="prevPage()">
+            <i class="fas fa-chevron-right"></i> السابق
+          </a>
+        </li>
+
+        <li
+          class="page-item"
+          *ngFor="let page of pages"
+          [class.active]="page === PageNumber"
+        >
+          <a
+            class="page-link"
+            href="javascript:void(0)"
+            (click)="goToPage(page)"
+          >
+            {{ page }}
+          </a>
+        </li>
+
+        <li class="page-item" [class.disabled]="PageNumber === totalPages">
+          <a class="page-link" href="javascript:void(0)" (click)="nextPage()">
+            التالي <i class="fas fa-chevron-left"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Create/Edit Modal -->
+  <div
+    class="modal"
+    [class.show]="showModal"
+    [style.display]="showModal ? 'block' : 'none'"
+    tabindex="-1"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {{ isEditMode ? "تعديل المدينة" : "إضافة مدينة جديدة" }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeModal()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="cityName" class="form-label">اسم المدينة</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cityName"
+              [(ngModel)]="selectedCity.name"
+              placeholder="أدخل اسم المدينة"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="standardShippingCost" class="form-label"
+              >تكلفة الشحن</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="standardShippingCost"
+              [(ngModel)]="selectedCity.standardShippingCost"
+              placeholder="أدخل تكلفة الشحن"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="pickupShippingCost" class="form-label"
+              >تكلفة ال Pickup</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="pickupShippingCost"
+              [(ngModel)]="selectedCity.pickupShippingCost"
+              placeholder="أدخل تكلفة ال Pickup"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="regionId" class="form-label">اسم المنطقة</label>
+            <select
+              class="form-select"
+              id="regionId"
+              [(ngModel)]="selectedCity.regionId"
+              required
+            >
+              <option *ngFor="let region of regions" [value]="region.id">
+                {{ region.governorate }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeModal()"
+          >
+            إلغاء
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="saveCity()"
+          >
+            حفظ
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div
+    class="modal"
+    [class.show]="deletingId !== null"
+    [style.display]="deletingId !== null ? 'block' : 'none'"
+    tabindex="-1"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">تأكيد الحذف</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="cancelDelete()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>هل أنت متأكد من حذف هذه المدينة؟</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="cancelDelete()"
+          >
+            إلغاء
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deleteCity(deletingId!)"
+          >
+            حذف
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background overlay for modals -->
+  <div
+    class="modal-backdrop fade show"
+    *ngIf="showModal || deletingId !== null"
+    (click)="showModal ? closeModal() : cancelDelete()"
+  ></div>
+</div>

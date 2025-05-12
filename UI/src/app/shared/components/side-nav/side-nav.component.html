@@ -1,0 +1,154 @@
+<!-- Improved Sidebar Component -->
+<div class="sidebar-overlay" [class.active]="isSidebarOpen" (click)="headerToggle()"></div>
+
+<header #header class="sidebar admin-sidebar d-flex flex-column">
+  <!-- Logo Section -->
+  <div class="sidebar-header d-flex align-items-center justify-content-between p-4">
+    <div class="logo-container d-flex align-items-center">
+      <img src="/assets/images/Logo.png" alt="Logo" class="logo-img me-3">
+      <span class="app-name fw-bold">نظام إدارة الشحن</span>
+    </div>
+    <i #headerToggleBtn class="toggle-btn bi bi-x-lg fs-4" (click)="headerToggle()"></i>
+  </div>
+
+  <!-- Navigation Menu -->
+  <div class="sidebar-scroll-container">
+    <nav id="navmenu" class="sidebar-menu">
+      <ul class="nav-list d-flex flex-column">
+        <!-- Dashboard -->
+        <li class="nav-item" *ngIf="hasPermission('Dashboard:View')">
+          <a [routerLink]="['dashboard']" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+            <i class="bi bi-house-fill nav-icon"></i>
+            <span class="nav-text">الصفحة الرئيسية</span>
+            <span class="active-indicator"></span>
+          </a>
+        </li>
+
+        <!-- Management Section -->
+        <ng-container *ngIf="hasPermission('Permissions:ViewPermissions') || hasPermission('Employees:AddEmployees')">
+          <li class="nav-section-label px-4 mt-4 mb-2">الإدارة</li>
+          
+          <li class="nav-item" *ngIf="hasPermission('Employees:AddEmployees')">
+            <a routerLink="/add-employee" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+              <i class="fas fa-user-plus nav-icon"></i>
+              <span class="nav-text">إضافة موظف جديد</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+          
+          <li class="nav-item" *ngIf="hasPermission('Permissions:ViewPermissions')">
+            <a routerLink="/Groups" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+              <i class="fas fa-users-cog nav-icon"></i>
+              <span class="nav-text">إدارة المجموعات</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+        </ng-container>
+
+        <!-- Orders Section -->
+        <ng-container *ngIf="hasPermission('Orders:ViewOrders') || hasPermission('Orders:AddOrders') || hasPermission('OrderReports:ViewOrderReports')">
+          <li class="nav-section-label px-4 mt-4 mb-2">الطلبات</li>
+          
+          <li class="nav-item" *ngIf="hasPermission('Orders:AddOrders')">
+            <a routerLink="/orders/form" 
+               routerLinkActive="active" 
+               [routerLinkActiveOptions]="{exact: true}" 
+               class="nav-link rounded-3 mx-3">
+              <i class="fas fa-cart-plus nav-icon"></i>
+              <span class="nav-text">إضافة طلب جديد</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+          
+          <li class="nav-item" *ngIf="hasPermission('Orders:ViewOrders')">
+            <a routerLink="/orders" 
+               routerLinkActive="active" 
+               [routerLinkActiveOptions]="{exact: true}" 
+               class="nav-link rounded-3 mx-3">
+              <i class="fas fa-list-ul nav-icon"></i>
+              <span class="nav-text">عرض الطلبات</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+          
+          <li class="nav-item" *ngIf="hasPermission('OrderReports:ViewOrderReports')">
+            <a routerLink="/order-reports" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+              <i class="fas fa-chart-pie nav-icon"></i>
+              <span class="nav-text">تقارير الطلبات</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+        </ng-container>
+
+        <!-- System Settings Section -->
+        <ng-container *ngIf="hasPermission('Settings:ViewSettings') || hasPermission('Regions:ViewRegions') || hasPermission('Branches:ViewBranches')">
+          <li class="nav-section-label px-4 mt-4 mb-2">إعدادات النظام</li>
+          
+          <li class="nav-item" *ngIf="hasPermission('Regions:ViewRegions')">
+            <a routerLink="/regions" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+              <i class="fas fa-map-marked-alt nav-icon"></i>
+              <span class="nav-text">إدارة المناطق</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+          
+          <li class="nav-item" *ngIf="hasPermission('Branches:ViewBranches')">
+            <a routerLink="/branches" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+              <i class="bi bi-building nav-icon"></i>
+              <span class="nav-text">إدارة الفروع</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+          
+          <li class="nav-item" *ngIf="hasPermission('ShippingTypes:View')">
+            <a routerLink="/Shippingtypes" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+              <i class="bi bi-truck nav-icon"></i>
+              <span class="nav-text">أنواع الشحن</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+          
+          <li class="nav-item" *ngIf="hasPermission('Settings:ViewSettings')">
+            <a routerLink="/weightsettings" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+              <i class="fas fa-weight nav-icon"></i>
+              <span class="nav-text">إعدادات الوزن</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+          
+          <li class="nav-item" *ngIf="hasPermission('Cities:ViewCities')">
+            <a routerLink="/cities" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+              <i class="fas fa-city nav-icon"></i>
+              <span class="nav-text">إدارة المدن</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+          
+          <li class="nav-item" *ngIf="hasPermission('Merchants:AddMerchants')">
+            <a routerLink="/addMerchant" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+              <i class="fas fa-store nav-icon"></i>
+              <span class="nav-text">إضافة تجار</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+          
+          <li class="nav-item" *ngIf="hasPermission('Couriers:AddCouriers')">
+            <a routerLink="/addCourier" routerLinkActive="active" class="nav-link rounded-3 mx-3">
+              <i class="fas fa-truck-fast nav-icon"></i>
+              <span class="nav-text">إضافة مندوبين</span>
+              <span class="active-indicator"></span>
+            </a>
+          </li>
+        </ng-container>
+
+        <!-- Logout -->
+        <li class="nav-item logout-item mt-auto">
+          <a (click)="logout()" class="nav-link logout-link rounded-3 mx-3">
+            <i class="bi bi-box-arrow-left nav-icon"></i>
+            <span class="nav-text">تسجيل الخروج</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

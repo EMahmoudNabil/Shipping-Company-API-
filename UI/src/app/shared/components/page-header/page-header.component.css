@@ -1,0 +1,83 @@
+.page-header-container {
+    background-color: #f8f9fa;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 2rem;
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .header-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+  
+  .breadcrumb-nav {
+    direction: rtl;
+  }
+  
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    align-items: center;
+  }
+  
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .breadcrumb-link {
+    color: #6c757d;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 0.9rem;
+  }
+  
+  .breadcrumb-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
+  .breadcrumb-icon {
+    font-size: 1rem;
+    height: 1rem;
+    width: 1rem;
+    margin-left: 0.25rem;
+    vertical-align: middle;
+  }
+  
+  .breadcrumb-separator {
+    color: #6c757d;
+    margin: 0 0.5rem;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  /* التكيف مع الشاشات الصغيرة */
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .header-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }

@@ -1,0 +1,34 @@
+.arabic-style {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  /* Table Styling */
+  .table-hover tbody tr {
+    transition: all 0.3s ease;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    transform: translateX(-5px); /* RTL hover slide effect */
+  }
+  
+  .bg-light-primary {
+    background-color: rgba(var(--bs-primary-rgb), 0.12) !important;
+  }
+  
+  /* Modal RTL Adjustments */
+  .modal-header {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem 1.5rem;
+  }
+  
+  .arabic-style .modal-header .btn-close {
+    margin-left: auto;
+    margin-right: -0.5rem;
+  }
+  
+  .rtl-form .form-control,
+  .rtl-form .form-select {
+    text-align: right;
+  }
